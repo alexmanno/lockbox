@@ -20,7 +20,12 @@ class Crypto
 {
     protected static $impl;
 
-    public static function init( $provider = null )
+    /**
+     * @param null $provider
+     *
+     * @return bool
+     */
+    public static function init($provider = null )
     {
         if (!$provider) {
             // TODO: sodium support
@@ -47,46 +52,123 @@ class Crypto
         return true;
     }
 
-    public static function hash( $alg, $data )
+    /**
+     * @param $alg
+     * @param $data
+     *
+     * @return mixed
+     */
+    public static function hash($alg, $data )
     {
         return self::$impl->hash( $alg, $data );
     }
-    public static function hmac( $alg, $key, $data )
+
+    /**
+     * @param $alg
+     * @param $key
+     * @param $data
+     *
+     * @return mixed
+     */
+    public static function hmac($alg, $key, $data )
     {
         return self::$impl->hmac( $alg, $key, $data );
     }
-    public static function hkdf( $alg, $ikm, $len, $salt = "", $info = "" )
+
+    /**
+     * @param        $alg
+     * @param        $ikm
+     * @param        $len
+     * @param string $salt
+     * @param string $info
+     *
+     * @return mixed
+     */
+    public static function hkdf($alg, $ikm, $len, $salt = "", $info = "" )
     {
         return self::$impl->hkdf( $alg, $ikm, $len, $salt, $info );
     }
-    public static function encrypt( $alg, $key, $iv, $data )
+
+    /**
+     * @param $alg
+     * @param $key
+     * @param $iv
+     * @param $data
+     *
+     * @return mixed
+     */
+    public static function encrypt($alg, $key, $iv, $data )
     {
         return self::$impl->encrypt( $alg, $key, $iv, $data );
     }
-    public static function decrypt( $alg, $key, $iv, $data )
+
+    /**
+     * @param $alg
+     * @param $key
+     * @param $iv
+     * @param $data
+     *
+     * @return mixed
+     */
+    public static function decrypt($alg, $key, $iv, $data )
     {
         return self::$impl->decrypt( $alg, $key, $iv, $data );
     }
-    public static function hashdiff( $h1, $h2 )
+
+    /**
+     * @param $h1
+     * @param $h2
+     *
+     * @return mixed
+     */
+    public static function hashdiff($h1, $h2 )
     {
         return self::$impl->hashdiff( $h1, $h2 );
     }
-    public static function random( $count )
+
+    /**
+     * @param $count
+     *
+     * @return mixed
+     */
+    public static function random($count )
     {
         return self::$impl->random( $count );
     }
-    public static function ivlen( $alg )
+
+    /**
+     * @param $alg
+     *
+     * @return mixed
+     */
+    public static function ivlen($alg )
     {
         return self::$impl->ivlen( $alg );
     }
-    public static function keylen( $alg )
+
+    /**
+     * @param $alg
+     *
+     * @return mixed
+     */
+    public static function keylen($alg )
     {
         return self::$impl->keylen( $alg );
     }
-    public static function hashlen( $alg )
+
+    /**
+     * @param $alg
+     *
+     * @return mixed
+     */
+    public static function hashlen($alg )
     {
         return self::$impl->hashlen( $alg );
     }
+
+    /**
+     * @return mixed
+     */
     public static function algolist()
     {
         return self::$impl->algolist();

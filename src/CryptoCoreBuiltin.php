@@ -22,15 +22,39 @@ class CryptoCoreBuiltin
 {
     protected $cache = [];
 
-    public function hash( $alg, $data )
+    /**
+     * @param $alg
+     * @param $data
+     *
+     * @return string
+     */
+    public function hash($alg, $data )
     {
         return hash( $alg, $data, true );
     }
-    public function hmac( $alg, $key, $data )
+
+    /**
+     * @param $alg
+     * @param $key
+     * @param $data
+     *
+     * @return string
+     */
+    public function hmac($alg, $key, $data )
     {
         return hash_hmac( $alg, $data, $key, true );
     }
-    public function hkdf( $alg, $ikm, $len, $salt = "", $info = "" )
+
+    /**
+     * @param        $alg
+     * @param        $ikm
+     * @param        $len
+     * @param string $salt
+     * @param string $info
+     *
+     * @return bool|string
+     */
+    public function hkdf($alg, $ikm, $len, $salt = "", $info = "" )
     {
         if (function_exists("hash_hkdf")) {
             return hash_hkdf($alg, $ikm, $len, $info, $salt);
@@ -44,15 +68,40 @@ class CryptoCoreBuiltin
         }
         return substr($okm, 0, $len);
     }
-    public function encrypt( $alg, $key, $iv, $data )
+
+    /**
+     * @param $alg
+     * @param $key
+     * @param $iv
+     * @param $data
+     *
+     * @throws Exception
+     */
+    public function encrypt($alg, $key, $iv, $data )
     {
         throw new Exception( "No usable encryptor" );
     }
-    public function decrypt( $alg, $key, $iv, $data )
+
+    /**
+     * @param $alg
+     * @param $key
+     * @param $iv
+     * @param $data
+     *
+     * @throws Exception
+     */
+    public function decrypt($alg, $key, $iv, $data )
     {
         throw new Exception( "No usable decryptor" );
     }
-    public function hashdiff( $h1, $h2 )
+
+    /**
+     * @param $h1
+     * @param $h2
+     *
+     * @return bool
+     */
+    public function hashdiff($h1, $h2 )
     {
         if (function_exists("hash_equals")) {
             return !hash_equals($h1, $h2);
@@ -67,7 +116,14 @@ class CryptoCoreBuiltin
         }
         return !!$ret;
     }
-    public function random( $count )
+
+    /**
+     * @param $count
+     *
+     * @return string
+     * @throws Exception
+     */
+    public function random($count )
     {
         if (function_exists( "random_bytes" )) {
             return random_bytes( $count );
@@ -78,15 +134,33 @@ class CryptoCoreBuiltin
         }
         throw new Exception( "No good source of randomness found" );
     }
-    public function ivlen( $alg )
+
+    /**
+     * @param $alg
+     *
+     * @throws Exception
+     */
+    public function ivlen($alg )
     {
         throw new Exception( "Unknown algorithm" );
     }
-    public function keylen( $alg )
+
+    /**
+     * @param $alg
+     *
+     * @throws Exception
+     */
+    public function keylen($alg )
     {
         throw new Exception( "Unknown algorithm" );
     }
-    public function hashlen( $alg )
+
+    /**
+     * @param $alg
+     *
+     * @return mixed
+     */
+    public function hashlen($alg )
     {
         $k = "hashlen-$alg";
         if (empty( $this->cache[ $k ] )) {
@@ -95,6 +169,10 @@ class CryptoCoreBuiltin
         }
         return $this->cache[ $k ];
     }
+
+    /**
+     * @return array
+     */
     public function algolist()
     {
         return [
