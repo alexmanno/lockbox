@@ -21,7 +21,7 @@ class Crypto
     protected static $impl;
 
     /**
-     * @param null $provider
+     * @param $provider
      *
      * @return bool
      */
